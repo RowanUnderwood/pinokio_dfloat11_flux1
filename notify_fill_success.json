@@ -1,0 +1,17 @@
+{
+  "run": [
+    {
+      "method": "notify",
+      "params": {
+        "type": "success",
+        "html": "FLUX.1-Fill-dev example finished successfully! Image saved in the 'output' folder."
+      }
+    },
+    {
+      "method": "browser.open",
+      "params": {
+        "uri": "{{kernel.path(__dirname, 'output', 'flux_1_fill_dev_output.png')}}"
+      }
+    }
+  ]
+}

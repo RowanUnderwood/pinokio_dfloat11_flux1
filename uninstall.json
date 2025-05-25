@@ -1,0 +1,23 @@
+{
+  "run": [
+    {
+      "method": "notify",
+      "params": { "html": "Uninstalling DFloat11 FLUX.1 Examples..." }
+    },
+    {
+      "method": "fs.rm",
+      "params": { "path": "env" }
+    },
+    {
+      "method": "fs.rm",
+      "params": { "path": "output" }
+    },
+    {
+      "method": "notify",
+      "params": {
+        "type": "success",
+        "html": "DFloat11 FLUX.1 Examples uninstalled. (Python environment and output folder removed). Model files remain in your global Hugging Face cache."
+      }
+    }
+  ]
+}

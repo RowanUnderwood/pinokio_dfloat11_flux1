@@ -1,0 +1,17 @@
+{
+  "run": [{
+    "method": "shell.run",
+    "params": {
+      "title": "Running FLUX.1-dev DFloat11 Example",
+      "venv": "env",
+      "path": ".",
+      "message": "python scripts/pinokio_flux_1_dev_example.py --output_image_path output/flux_1_dev_output.png",
+      "on": [{ "event": "/SUCCESS: Saved output to/", "done": true }, { "event": "/ERROR:/", "done": true, "kill": true }]
+    }
+  },{
+    "method": "when",
+    "params": {
+      "uri": "{{(context.event && context.event.includes('SUCCESS')) ? 'notify_success.json' : 'notify_failure.json'}}"
+    }
+  }]
+}

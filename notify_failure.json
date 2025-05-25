@@ -1,0 +1,9 @@
+{
+  "run": [{
+    "method": "notify",
+    "params": {
+      "type": "error",
+      "html": "FLUX.1-dev example encountered an error. Check the terminal for details."
+    }
+  }]
+}

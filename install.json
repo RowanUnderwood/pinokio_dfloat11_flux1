@@ -1,0 +1,59 @@
+{
+  "pre": [{
+    "title": "CUDA Version Selection",
+    "description": "Select the CUDA version for PyTorch and DFloat11. This will determine which PyTorch binaries are downloaded (cu121 for CUDA 12.x, cu118 for CUDA 11.x). Ensure your NVIDIA drivers and system CUDA toolkit are compatible.",
+    "type": "select",
+    "key": "cuda_choice",
+    "options": [
+      { "text": "CUDA 12.x (e.g., for PyTorch with cu121)", "value": "cuda12" },
+      { "text": "CUDA 11.x (e.g., for PyTorch with cu118)", "value": "cuda11" }
+    ],
+    "default": "cuda12"
+  }],
+  "run": [
+    {
+      "method": "notify",
+      "params": {
+        "html": "Starting DFloat11 FLUX.1 installation..."
+      }
+    },
+    {
+      "method": "python.venv",
+      "params": {
+        "name": "env",
+        "req": ["3.9", "3.10", "3.11"]
+      }
+    },
+    {
+      "method": "shell.run",
+      "params": {
+        "title": "Installing PyTorch",
+        "venv": "env",
+        "message": "{{input.cuda_choice === 'cuda12' ? 'pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121' : 'pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118'}}",
+        "prompt": "Installing PyTorch for selected CUDA version ({{input.cuda_choice}})... This may take a few minutes."
+      }
+    },
+    {
+      "method": "shell.run",
+      "params": {
+        "title": "Installing DFloat11 & Other Dependencies",
+        "venv": "env",
+        "message": "pip install dfloat11[{{input.cuda_choice}}] diffusers transformers accelerate Pillow invisible-watermark huggingface_hub",
+        "prompt": "Installing DFloat11 (for {{input.cuda_choice}}), Diffusers, Transformers, and other required libraries..."
+      }
+    },
+    {
+      "method": "fs.mkdir",
+      "params": {
+        "path": "output"
+      }
+    },
+    {
+      "method": "notify",
+      "params": {
+        "type": "success",
+        "html": "Installation Complete! You can now run the FLUX.1 examples from the menu."
+      }
+    }
+  ]
+}
